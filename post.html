@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Page</title>
+
+    <style>
+      body {
+        font-family: 'Times New Roman', Times, serif;
+        background: url(popular-food3.jpg) no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-position: center;
+        background-size: cover;
+        min-height: 100vh;
+      }
+
+      .post-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 5px solid white;
+        border-radius: 5px;
+        backdrop-filter: blur(2px);
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        font-size: 25px;
+      }
+
+      #postDetails h3 {
+        /* text-shadow: 2px 2px 5px orange ;
+        color: black; */
+        color: black;
+        text-shadow: 1px 1px 2px orange,  0 0 5px white;
+      }
+
+      #postDetails p {
+        color: white;
+        text-align: justify;
+        text-justify: inter-word;
+      }
+
+      h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <div class="post-container">
+        <h1>Post Page</h1>
+        <div id="postDetails"></div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    // Post Page
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get("id");
+
+      fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+        .then((response) => response.json())
+        .then((post) => {
+          const postDetails = document.getElementById("postDetails");
+          postDetails.innerHTML = `
+                    <h3>Title: ${post.title}</h3>
+                    <p>Body: ${post.body}</p>
+                `;
+        })
+        .catch((error) => console.error("Error fetching posts:", error));
+    });
+  </script>
+</html>

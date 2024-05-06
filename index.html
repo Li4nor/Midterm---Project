@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background: url(hero.jpg) no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 100%;
+        backdrop-filter: blur(3px);
+      }
+
+      .logincontainer {
+        position: relative;
+        width: 350px;
+        height: 350px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 5px solid rgba(255, 255, 2550.5);
+      }
+
+      .logincontainer h2 {
+        color: orange;
+        text-align: center;
+        font-size: 32px;
+      }
+
+      .logincontainer .input-box {
+        position: relative;
+        margin: 30px 0;
+        width: 310px;
+        border-bottom: 2px solid orange;
+      }
+
+      .logincontainer .input-box input {
+        width: 100%;
+        height: 45px;
+        background: transparent;
+        border: none;
+        outline: none;
+        padding: 0 10px 0 10px;
+        font-size: 15px;
+      }
+
+      i {
+        top: 13px;
+        right: 0;
+        position: absolute;
+        color: white;
+      }
+
+      input::placeholder {
+        color: white;
+      }
+
+      .btn {
+        color: orange;
+        background: orange (77, 180, 128);
+        border-radius: 1px;
+        font-size: 17px;
+        width: 100%;
+        height: 40px;
+        transition: transform 0.2s;
+      }
+
+      .btn:active {
+        transform: scale(0.95);
+      }
+
+      .btn:hover {
+        color: black;
+      }
+
+      .popup {
+        width: 400px;
+        background-color: black;
+        visibility: hidden;
+        text-align: center;
+        padding: 0 30px 30px;
+        height: 330px;
+        border-radius: 6px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.4s, top 0.4s;
+        color: #000;
+      }
+
+      .popup h2 {
+        color: #000;
+      }
+
+      .popup ion-icon {
+        color: black (69, 185, 83);
+        font-size: 50px;
+      }
+
+      .popup button {
+        width: 100%;
+        background: black;
+        padding: 10px 0;
+        margin-top: 50px;
+        border: none;
+        outline: none;
+        font-size: 18px;
+        color: black;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .popup a {
+        color: black;
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 2px;
+      }
+
+      .open-slide {
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        visibility: visible;
+      }
+
+      .theform {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="theform">
+      <div class="logincontainer">
+        <form id="loginForm">
+          <h2>Login</h2>
+
+          <div class="input-box">
+            <input type="text" id="username" placeholder="Username" required />
+            <i class="bx bxs-user"></i>
+          </div>
+
+          <div class="input-box">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+            <i class="bx bxs-lock-alt"></i>
+          </div>
+
+          <div class="button">
+            <input type="submit" id="submit" class="btn" value="Login" />
+          </div>
+
+          <div class="div popup" id="popup">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <h2>Thank you!</h2>
+            <p>Your have been Succesfully Submitted. Thanks!</p>
+            <a href="#"><button>OK</button></a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+
+  <script>
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        fetch("https://jsonplaceholder.typicode.com/users")
+          .then((response) => response.json())
+          .then((users) => {
+            const user = users.find((user) => user.username === username);
+
+            if (user) {
+              if (password === "secret123") {
+                window.location.href = "posts.html";
+              } else {
+                alert("Incorrect password!");
+              }
+            } else {
+              alert("User not found!");
+            }
+          })
+          .catch((error) => alert("Error fetching users:", error));
+      });
+
+    function validation() {
+      if (
+        document.Formfill.Cpassword.value == document.Formfill.Password.value
+      ) {
+        popup.classList.add("open-slide");
+        return f;
+      }
+    }
+  </script>
+</html>
